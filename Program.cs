@@ -16,7 +16,8 @@ internal static class Program
         // see https://aka.ms/applicationconfiguration.
         ApplicationConfiguration.Initialize();
 
-        var host = CreateHostBuilder().Build();
+        var host = CreateHostBuilder()
+            .Build();
         var firstForm = host.Services.GetRequiredService<MenuForm>();
             
         Application.Run(firstForm);
@@ -26,6 +27,7 @@ internal static class Program
         .ConfigureServices((context, services) =>
         {
             services.AddTransient<MenuForm>();
-        })
-        .AddServices(); 
+            services.AddServices();
+        });
+        
 }

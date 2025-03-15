@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             downloadBtn = new Button();
-            textBox1 = new TextBox();
-            dateTimePicker1 = new DateTimePicker();
+            partyName = new TextBox();
+            startPicker = new DateTimePicker();
             dataGridView1 = new DataGridView();
             label1 = new Label();
             label2 = new Label();
@@ -48,21 +48,22 @@
             downloadBtn.TabIndex = 0;
             downloadBtn.Text = "Download Tweets";
             downloadBtn.UseVisualStyleBackColor = true;
+            downloadBtn.Click += downloadBtn_Click;
             // 
-            // textBox1
+            // partyName
             // 
-            textBox1.Location = new Point(112, 83);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(200, 23);
-            textBox1.TabIndex = 1;
+            partyName.Location = new Point(112, 83);
+            partyName.Name = "partyName";
+            partyName.Size = new Size(200, 23);
+            partyName.TabIndex = 1;
             // 
-            // dateTimePicker1
+            // startPicker
             // 
-            dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(112, 117);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(200, 23);
-            dateTimePicker1.TabIndex = 2;
+            startPicker.Format = DateTimePickerFormat.Short;
+            startPicker.Location = new Point(112, 117);
+            startPicker.Name = "startPicker";
+            startPicker.Size = new Size(200, 23);
+            startPicker.TabIndex = 2;
             // 
             // dataGridView1
             // 
@@ -98,7 +99,6 @@
             label3.Size = new Size(418, 15);
             label3.TabIndex = 4;
             label3.Text = "Enter the name of the political party and the start date of the tweet collection. ";
-            label3.Click += label3_Click;
             // 
             // classifyBtn
             // 
@@ -117,7 +117,6 @@
             label4.Size = new Size(384, 15);
             label4.TabIndex = 4;
             label4.Text = "Then press the Download Tweets button to download data from twitter.";
-            label4.Click += label3_Click;
             // 
             // MenuForm
             // 
@@ -129,12 +128,13 @@
             Controls.Add(label3);
             Controls.Add(label1);
             Controls.Add(dataGridView1);
-            Controls.Add(dateTimePicker1);
-            Controls.Add(textBox1);
+            Controls.Add(startPicker);
+            Controls.Add(partyName);
             Controls.Add(classifyBtn);
             Controls.Add(downloadBtn);
             Name = "MenuForm";
             Text = "Classify Emotions";
+            Load += MenuForm_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -143,8 +143,8 @@
         #endregion
 
         private Button downloadBtn;
-        private TextBox textBox1;
-        private DateTimePicker dateTimePicker1;
+        private TextBox partyName;
+        private DateTimePicker startPicker;
         private DataGridView dataGridView1;
         private Label label1;
         private Label label2;
