@@ -28,16 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             downloadBtn = new Button();
             partyName = new TextBox();
             startPicker = new DateTimePicker();
-            dataGridView1 = new DataGridView();
+            classifyGrid = new DataGridView();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
             classifyBtn = new Button();
             label4 = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            statusStrip1 = new StatusStrip();
+            statusLbl = new ToolStripStatusLabel();
+            progressBar = new ToolStripProgressBar();
+            errorProvider1 = new ErrorProvider(components);
+            timer1 = new System.Windows.Forms.Timer(components);
+            randomQuoteTxt = new Label();
+            ((System.ComponentModel.ISupportInitialize)classifyGrid).BeginInit();
+            statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // downloadBtn
@@ -52,6 +61,8 @@
             // 
             // partyName
             // 
+            partyName.AutoCompleteCustomSource.AddRange(new string[] { "pisorgpl", "Platforma_org", "trzaskowski_x", "NawrockiKn", "SlawomirMentzen", "szymon_holownia", "ZandbergRAZEM", "MagdaBiejat", "GrzegorzBraun_", "" });
+            partyName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             partyName.Location = new Point(112, 83);
             partyName.Name = "partyName";
             partyName.Size = new Size(200, 23);
@@ -65,13 +76,15 @@
             startPicker.Size = new Size(200, 23);
             startPicker.TabIndex = 2;
             // 
-            // dataGridView1
+            // classifyGrid
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 242);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(426, 209);
-            dataGridView1.TabIndex = 3;
+            classifyGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            classifyGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            classifyGrid.Location = new Point(12, 242);
+            classifyGrid.Name = "classifyGrid";
+            classifyGrid.Size = new Size(497, 223);
+            classifyGrid.TabIndex = 3;
+            classifyGrid.CellDoubleClick += classifyGrid_CellDoubleClick;
             // 
             // label1
             // 
@@ -118,24 +131,67 @@
             label4.TabIndex = 4;
             label4.Text = "Then press the Download Tweets button to download data from twitter.";
             // 
+            // statusStrip1
+            // 
+            statusStrip1.Items.AddRange(new ToolStripItem[] { statusLbl, progressBar });
+            statusStrip1.Location = new Point(0, 522);
+            statusStrip1.Name = "statusStrip1";
+            statusStrip1.Size = new Size(517, 22);
+            statusStrip1.TabIndex = 5;
+            statusStrip1.Text = "statusStrip1";
+            // 
+            // statusLbl
+            // 
+            statusLbl.Name = "statusLbl";
+            statusLbl.Size = new Size(39, 17);
+            statusLbl.Text = "Ready";
+            // 
+            // progressBar
+            // 
+            progressBar.Name = "progressBar";
+            progressBar.Size = new Size(100, 16);
+            // 
+            // errorProvider1
+            // 
+            errorProvider1.ContainerControl = this;
+            // 
+            // timer1
+            // 
+            timer1.Tick += timer1_Tick;
+            // 
+            // randomQuoteTxt
+            // 
+            randomQuoteTxt.AutoSize = true;
+            randomQuoteTxt.Font = new Font("Yu Gothic", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            randomQuoteTxt.Location = new Point(21, 479);
+            randomQuoteTxt.Name = "randomQuoteTxt";
+            randomQuoteTxt.Size = new Size(0, 25);
+            randomQuoteTxt.TabIndex = 4;
+            // 
             // MenuForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(450, 450);
+            ClientSize = new Size(517, 544);
+            Controls.Add(statusStrip1);
+            Controls.Add(randomQuoteTxt);
             Controls.Add(label2);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label1);
-            Controls.Add(dataGridView1);
+            Controls.Add(classifyGrid);
             Controls.Add(startPicker);
             Controls.Add(partyName);
             Controls.Add(classifyBtn);
             Controls.Add(downloadBtn);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "MenuForm";
             Text = "Classify Emotions";
             Load += MenuForm_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)classifyGrid).EndInit();
+            statusStrip1.ResumeLayout(false);
+            statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -145,11 +201,17 @@
         private Button downloadBtn;
         private TextBox partyName;
         private DateTimePicker startPicker;
-        private DataGridView dataGridView1;
+        private DataGridView classifyGrid;
         private Label label1;
         private Label label2;
         private Label label3;
         private Button classifyBtn;
         private Label label4;
+        private StatusStrip statusStrip1;
+        private ToolStripStatusLabel statusLbl;
+        private ToolStripProgressBar progressBar;
+        private ErrorProvider errorProvider1;
+        private System.Windows.Forms.Timer timer1;
+        private Label randomQuoteTxt;
     }
 }
