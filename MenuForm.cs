@@ -1,40 +1,49 @@
+using Microsoft.ML;
 using Models;
 using Services;
+using System.Diagnostics;
+using Tensorflow;
+using static TorchSharp.torch.nn;
 
 namespace PostGraduate_MachineLearning
 {
     public partial class MenuForm : Form
     {
         private readonly IDataDownloader _dataDownloader;
-        private readonly IEmotionClassifier _emotionClassifier;
         private readonly BindingSource _bindingSource;
+        private PredictionEngine<ClassificationResult, EmotionPrediction> _predictionEngine;
         private UserTweetRequest _tweetRequest = new();
+        private MLContext _mlContext = new MLContext();
+        private ITransformer _model;
 
-        public MenuForm(IDataDownloader dataDownloader, IEmotionClassifier emotionClassifier)
+
+        public MenuForm(IDataDownloader dataDownloader)
         {
             InitializeComponent();
-            this._dataDownloader = dataDownloader;
-            this._emotionClassifier = emotionClassifier;
-            this._bindingSource = new BindingSource();
+            _dataDownloader = dataDownloader;
+            _bindingSource = new BindingSource();
         }
 
-        private void MenuForm_Load(object sender, EventArgs e)
+        private async void MenuForm_Load(object sender, EventArgs e)
         {
             AddDataBindings();
             progressBar.Visible = false;
-            timer1.Interval = 3000;
-            timer1.Start();
+            randomQuoteTimer.Interval = 3000;
+            randomQuoteTimer.Start();
+            classifyBtn.Enabled = false;
+
+            await Task.Run(LoadModelAsync); //Action Delegate
         }
 
         private async void downloadBtn_Click(object sender, EventArgs e)
         {
             if (!_tweetRequest.IsRequestValid())
             {
-                errorProvider1.SetError(partyName, "Field cannot be empty!");
+                errProvider.SetError(partyNameTxt, "Field cannot be empty!");
                 return;
             }
 
-            errorProvider1.Clear();
+            errProvider.Clear();
             PrepareUIForDownload();
 
             try
@@ -45,7 +54,7 @@ namespace PostGraduate_MachineLearning
                     MessageBox.Show("No data found for indicated Tweeter account");
                     return;
                 }
-
+                classifyBtn.Enabled = true;
                 await ProcessTweetsAsync(tweets.ToList());
             }
             catch (Exception ex)
@@ -55,6 +64,39 @@ namespace PostGraduate_MachineLearning
             finally
             {
                 ResetUIAfterDownload();
+            }
+        }
+
+
+        /// <summary>
+        /// Loading ML.NET Classification model
+        /// </summary>
+        private async Task LoadModelAsync()
+        {
+            try
+            {
+                UpdateStatusLabelFromAnotherThread("Loading ML model...");
+                var modelPath = Path.Combine(AppContext.BaseDirectory, "Model", "emotionModel.zip");
+                _model = _mlContext.Model.Load(modelPath, out _);
+                _predictionEngine = _mlContext.Model.CreatePredictionEngine<ClassificationResult, EmotionPrediction>(_model);
+                statusLbl.Text = "Ready ...";
+                UpdateStatusLabelFromAnotherThread("ML Model Loaded");
+            }
+            catch (Exception ex)
+            {
+                //TODO
+            }
+        }
+
+        private void UpdateStatusLabelFromAnotherThread(string message)
+        {
+            if (statusStrip1.InvokeRequired)
+            {
+                statusStrip1.Invoke(new Action(() => statusLbl.Text = message));
+            }
+            else
+            {
+                statusLbl.Text = message;
             }
         }
 
@@ -74,16 +116,16 @@ namespace PostGraduate_MachineLearning
         /// </summary>
         private void AddDataBindings()
         {
-            partyName.DataBindings.Add("Text", _tweetRequest, "PoliticalGroup");
+            partyNameTxt.DataBindings.Add("Text", _tweetRequest, "PoliticalGroup");
             startPicker.DataBindings.Add("Value", _tweetRequest, "StartDate");
             classifyGrid.DataSource = _bindingSource;
 
             var data = new string[] { "pisorgpl", "Platforma_org", "trzaskowski_x", "NawrockiKn", "SlawomirMentzen", "szymon_holownia", "ZandbergRAZEM", "MagdaBiejat", "GrzegorzBraun_" };
             AutoCompleteStringCollection source = new();
             source.AddRange(data);
-            partyName.AutoCompleteCustomSource = source;
-            partyName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            partyName.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            partyNameTxt.AutoCompleteCustomSource = source;
+            partyNameTxt.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            partyNameTxt.AutoCompleteSource = AutoCompleteSource.CustomSource;
             startPicker.MinDate = DateTime.Now.AddDays(-7);
         }
 
@@ -147,7 +189,27 @@ namespace PostGraduate_MachineLearning
         {
             Random random = new Random();
             int index = random.Next(quotes.Count);
-            randomQuoteTxt.Text = quotes[index];    
+            randomQuoteTxt.Text = quotes[index];
+        }
+
+        private async void classifyBtn_Click(object sender, EventArgs e)
+        {
+            var data = (List<ClassificationResult>)_bindingSource.DataSource;
+
+            var output = await Task.Run(() =>
+            {
+                return data.Select(row =>
+                {
+                    var prediction = _predictionEngine.Predict(row);
+                    var cleanEmotion = prediction.PredictedEmotion?.Trim().Replace(";", string.Empty);
+                    return new ClassificationResult
+                    {
+                        TweetText = row.TweetText,
+                        Emotion = cleanEmotion!,
+                    };
+                }).ToList();
+            });
+            _bindingSource.DataSource = output;  
         }
     }
 }

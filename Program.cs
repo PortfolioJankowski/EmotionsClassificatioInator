@@ -19,7 +19,7 @@ internal static class Program
         var host = CreateHostBuilder()
             .Build();
         var firstForm = host.Services.GetRequiredService<MenuForm>();
-            
+        
         Application.Run(firstForm);
     }
 

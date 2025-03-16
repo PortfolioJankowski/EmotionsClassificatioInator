@@ -30,7 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             downloadBtn = new Button();
-            partyName = new TextBox();
+            partyNameTxt = new TextBox();
             startPicker = new DateTimePicker();
             classifyGrid = new DataGridView();
             label1 = new Label();
@@ -41,12 +41,12 @@
             statusStrip1 = new StatusStrip();
             statusLbl = new ToolStripStatusLabel();
             progressBar = new ToolStripProgressBar();
-            errorProvider1 = new ErrorProvider(components);
-            timer1 = new System.Windows.Forms.Timer(components);
+            errProvider = new ErrorProvider(components);
+            randomQuoteTimer = new System.Windows.Forms.Timer(components);
             randomQuoteTxt = new Label();
             ((System.ComponentModel.ISupportInitialize)classifyGrid).BeginInit();
             statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errProvider).BeginInit();
             SuspendLayout();
             // 
             // downloadBtn
@@ -59,14 +59,14 @@
             downloadBtn.UseVisualStyleBackColor = true;
             downloadBtn.Click += downloadBtn_Click;
             // 
-            // partyName
+            // partyNameTxt
             // 
-            partyName.AutoCompleteCustomSource.AddRange(new string[] { "pisorgpl", "Platforma_org", "trzaskowski_x", "NawrockiKn", "SlawomirMentzen", "szymon_holownia", "ZandbergRAZEM", "MagdaBiejat", "GrzegorzBraun_", "" });
-            partyName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            partyName.Location = new Point(112, 83);
-            partyName.Name = "partyName";
-            partyName.Size = new Size(200, 23);
-            partyName.TabIndex = 1;
+            partyNameTxt.AutoCompleteCustomSource.AddRange(new string[] { "pisorgpl", "Platforma_org", "trzaskowski_x", "NawrockiKn", "SlawomirMentzen", "szymon_holownia", "ZandbergRAZEM", "MagdaBiejat", "GrzegorzBraun_", "" });
+            partyNameTxt.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            partyNameTxt.Location = new Point(112, 83);
+            partyNameTxt.Name = "partyNameTxt";
+            partyNameTxt.Size = new Size(200, 23);
+            partyNameTxt.TabIndex = 1;
             // 
             // startPicker
             // 
@@ -121,6 +121,7 @@
             classifyBtn.TabIndex = 0;
             classifyBtn.Text = "Clasify Tweets";
             classifyBtn.UseVisualStyleBackColor = true;
+            classifyBtn.Click += classifyBtn_Click;
             // 
             // label4
             // 
@@ -151,13 +152,13 @@
             progressBar.Name = "progressBar";
             progressBar.Size = new Size(100, 16);
             // 
-            // errorProvider1
+            // errProvider
             // 
-            errorProvider1.ContainerControl = this;
+            errProvider.ContainerControl = this;
             // 
-            // timer1
+            // randomQuoteTimer
             // 
-            timer1.Tick += timer1_Tick;
+            randomQuoteTimer.Tick += timer1_Tick;
             // 
             // randomQuoteTxt
             // 
@@ -181,7 +182,7 @@
             Controls.Add(label1);
             Controls.Add(classifyGrid);
             Controls.Add(startPicker);
-            Controls.Add(partyName);
+            Controls.Add(partyNameTxt);
             Controls.Add(classifyBtn);
             Controls.Add(downloadBtn);
             FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -191,7 +192,7 @@
             ((System.ComponentModel.ISupportInitialize)classifyGrid).EndInit();
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errProvider).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -199,7 +200,7 @@
         #endregion
 
         private Button downloadBtn;
-        private TextBox partyName;
+        private TextBox partyNameTxt;
         private DateTimePicker startPicker;
         private DataGridView classifyGrid;
         private Label label1;
@@ -210,8 +211,8 @@
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel statusLbl;
         private ToolStripProgressBar progressBar;
-        private ErrorProvider errorProvider1;
-        private System.Windows.Forms.Timer timer1;
+        private ErrorProvider errProvider;
+        private System.Windows.Forms.Timer randomQuoteTimer;
         private Label randomQuoteTxt;
     }
 }
