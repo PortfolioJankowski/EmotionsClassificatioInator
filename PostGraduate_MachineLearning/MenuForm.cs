@@ -52,7 +52,7 @@ namespace PostGraduate_MachineLearning
             startPicker.DataBindings.Add("Value", _tweetRequest, "StartDate");
             classifyGrid.DataSource = _bindingSource;
 
-            var data = new string[] { "pisorgpl", "Platforma_org", "trzaskowski_x", "NawrockiKn", "SlawomirMentzen", "szymon_holownia", "ZandbergRAZEM", "MagdaBiejat", "GrzegorzBraun_" };
+            var data = MessageProvider.GetTwitterAccounts().ToArray();  
             AutoCompleteStringCollection source = new();
             source.AddRange(data);
             partyNameTxt.AutoCompleteCustomSource = source;
@@ -128,7 +128,7 @@ namespace PostGraduate_MachineLearning
         private void timer1_Tick(object sender, EventArgs e)
         {
             Random random = new Random();
-            var quotes = QuotesProvider.GetQuotes().ToList();
+            var quotes = MessageProvider.GetQuotes().ToList();
             int index = random.Next(quotes.Count);
             randomQuoteTxt.Text = quotes[index];
         }
@@ -208,9 +208,17 @@ namespace PostGraduate_MachineLearning
                 {
                     var prediction = _predictionEngine.Predict(row);
                     var cleanEmotion = prediction.PredictedEmotion?.Trim().Replace(";", string.Empty);
-                    cleanEmotion = cleanEmotion!.Substring(0, 9) == "neutralny" ? "neutralny" : cleanEmotion;
-                    cleanEmotion = cleanEmotion!.Substring(0, 8) == "negatywn" ? "negatywny" : cleanEmotion;
-                    cleanEmotion = cleanEmotion!.Substring(0,3) == "poz" ? "pozytywny" : cleanEmotion;
+
+                    if (cleanEmotion != null)
+                    {
+                        if (cleanEmotion.StartsWith("neutralny", StringComparison.OrdinalIgnoreCase))
+                            cleanEmotion = "neutralny";
+                        else if (cleanEmotion.StartsWith("negatywn", StringComparison.OrdinalIgnoreCase))
+                            cleanEmotion = "negatywny";
+                        else if (cleanEmotion.StartsWith("poz", StringComparison.OrdinalIgnoreCase))
+                            cleanEmotion = "pozytywny";
+                    }
+
                     return new ClassificationResult
                     {
                         TweetText = row.TweetText,
@@ -218,6 +226,7 @@ namespace PostGraduate_MachineLearning
                     };
                 }).ToList();
             });
+
             _bindingSource.DataSource = output;
             CreatePieChart();
         }
@@ -228,23 +237,32 @@ namespace PostGraduate_MachineLearning
         private void CreatePieChart()
         {
             pieChart.Visible = true;
-            string seriesName = "Series1";
-            pieChart.Series[seriesName].Points.Clear(); //Clear previous data
+            const string seriesName = "Series1";
+
+            // Reset chart settings
+            pieChart.Series[seriesName].Points.Clear();
             pieChart.Legends.Clear();
-            var legend = new Legend(Name = "Legend1"    );
-            pieChart.Legends.Add(legend);
+            pieChart.Titles.Clear();
+
+            // Configure chart properties
             pieChart.Titles.Add("Emotions Distribution");
             pieChart.Series[seriesName].IsValueShownAsLabel = true;
             pieChart.Series[seriesName].ChartType = SeriesChartType.Pie;
             pieChart.Series[seriesName].IsVisibleInLegend = true;
 
-            var data = (List<ClassificationResult>)_bindingSource.DataSource;
-            var groupedData = data.GroupBy(d => d.Emotion)
-                .Select(g => new {Emotion = g.Key, Count = g.Count()});
-            
-            foreach (var item in groupedData)
+            // Add legend
+            pieChart.Legends.Add(new Legend("Legend1"));
+
+            // Process data
+            if (_bindingSource.DataSource is List<ClassificationResult> data)
             {
-                pieChart.Series[seriesName].Points.AddXY(item.Emotion, item.Count);
+                var groupedData = data.GroupBy(d => d.Emotion)
+                                      .Select(g => new { Emotion = g.Key, Count = g.Count() });
+
+                foreach (var item in groupedData)
+                {
+                    pieChart.Series[seriesName].Points.AddXY(item.Emotion, item.Count);
+                }
             }
         }
         #endregion
