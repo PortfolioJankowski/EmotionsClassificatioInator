@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             downloadBtn = new Button();
             partyNameTxt = new TextBox();
             startPicker = new DateTimePicker();
@@ -38,20 +42,29 @@
             label3 = new Label();
             classifyBtn = new Button();
             label4 = new Label();
-            statusStrip1 = new StatusStrip();
+            statusStrip = new StatusStrip();
             statusLbl = new ToolStripStatusLabel();
             progressBar = new ToolStripProgressBar();
             errProvider = new ErrorProvider(components);
             randomQuoteTimer = new System.Windows.Forms.Timer(components);
             randomQuoteTxt = new Label();
+            MenuStrip = new MenuStrip();
+            fileToolStripMenuItem = new ToolStripMenuItem();
+            saveAsToolStripMenuItem = new ToolStripMenuItem();
+            xlsxToolStripMenuItem = new ToolStripMenuItem();
+            csvToolStripMenuItem = new ToolStripMenuItem();
+            exitToolStripMenuItem = new ToolStripMenuItem();
+            pieChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)classifyGrid).BeginInit();
-            statusStrip1.SuspendLayout();
+            statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)errProvider).BeginInit();
+            MenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pieChart).BeginInit();
             SuspendLayout();
             // 
             // downloadBtn
             // 
-            downloadBtn.Location = new Point(76, 164);
+            downloadBtn.Location = new Point(21, 146);
             downloadBtn.Name = "downloadBtn";
             downloadBtn.Size = new Size(113, 26);
             downloadBtn.TabIndex = 0;
@@ -79,10 +92,19 @@
             // classifyGrid
             // 
             classifyGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            classifyGrid.BackgroundColor = SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.Black;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            classifyGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             classifyGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            classifyGrid.Location = new Point(12, 242);
+            classifyGrid.Location = new Point(21, 242);
             classifyGrid.Name = "classifyGrid";
-            classifyGrid.Size = new Size(497, 223);
+            classifyGrid.Size = new Size(409, 255);
             classifyGrid.TabIndex = 3;
             classifyGrid.CellDoubleClick += classifyGrid_CellDoubleClick;
             // 
@@ -107,7 +129,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(12, 21);
+            label3.Location = new Point(12, 36);
             label3.Name = "label3";
             label3.Size = new Size(418, 15);
             label3.TabIndex = 4;
@@ -115,7 +137,7 @@
             // 
             // classifyBtn
             // 
-            classifyBtn.Location = new Point(12, 210);
+            classifyBtn.Location = new Point(21, 210);
             classifyBtn.Name = "classifyBtn";
             classifyBtn.Size = new Size(113, 26);
             classifyBtn.TabIndex = 0;
@@ -126,20 +148,20 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(12, 36);
+            label4.Location = new Point(12, 51);
             label4.Name = "label4";
             label4.Size = new Size(384, 15);
             label4.TabIndex = 4;
             label4.Text = "Then press the Download Tweets button to download data from twitter.";
             // 
-            // statusStrip1
+            // statusStrip
             // 
-            statusStrip1.Items.AddRange(new ToolStripItem[] { statusLbl, progressBar });
-            statusStrip1.Location = new Point(0, 522);
-            statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(517, 22);
-            statusStrip1.TabIndex = 5;
-            statusStrip1.Text = "statusStrip1";
+            statusStrip.Items.AddRange(new ToolStripItem[] { statusLbl, progressBar });
+            statusStrip.Location = new Point(0, 541);
+            statusStrip.Name = "statusStrip";
+            statusStrip.Size = new Size(732, 22);
+            statusStrip.TabIndex = 5;
+            statusStrip.Text = "statusStrip1";
             // 
             // statusLbl
             // 
@@ -163,18 +185,80 @@
             // randomQuoteTxt
             // 
             randomQuoteTxt.AutoSize = true;
-            randomQuoteTxt.Font = new Font("Yu Gothic", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            randomQuoteTxt.Location = new Point(21, 479);
+            randomQuoteTxt.Font = new Font("Yu Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            randomQuoteTxt.Location = new Point(21, 512);
             randomQuoteTxt.Name = "randomQuoteTxt";
-            randomQuoteTxt.Size = new Size(0, 25);
+            randomQuoteTxt.Size = new Size(0, 17);
             randomQuoteTxt.TabIndex = 4;
+            // 
+            // MenuStrip
+            // 
+            MenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
+            MenuStrip.Location = new Point(0, 0);
+            MenuStrip.Name = "MenuStrip";
+            MenuStrip.Size = new Size(732, 24);
+            MenuStrip.TabIndex = 6;
+            MenuStrip.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { saveAsToolStripMenuItem, exitToolStripMenuItem });
+            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            fileToolStripMenuItem.Size = new Size(37, 20);
+            fileToolStripMenuItem.Text = "File";
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            saveAsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { xlsxToolStripMenuItem, csvToolStripMenuItem });
+            saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            saveAsToolStripMenuItem.Size = new Size(124, 22);
+            saveAsToolStripMenuItem.Text = "&Save as ...";
+            // 
+            // xlsxToolStripMenuItem
+            // 
+            xlsxToolStripMenuItem.Name = "xlsxToolStripMenuItem";
+            xlsxToolStripMenuItem.Size = new Size(95, 22);
+            xlsxToolStripMenuItem.Text = ".xlsx";
+            // 
+            // csvToolStripMenuItem
+            // 
+            csvToolStripMenuItem.Name = "csvToolStripMenuItem";
+            csvToolStripMenuItem.Size = new Size(95, 22);
+            csvToolStripMenuItem.Text = ".csv";
+            // 
+            // exitToolStripMenuItem
+            // 
+            exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            exitToolStripMenuItem.Size = new Size(124, 22);
+            exitToolStripMenuItem.Text = "E&xit";
+            exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
+            // 
+            // pieChart
+            // 
+            chartArea1.Name = "ChartArea1";
+            pieChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            pieChart.Legends.Add(legend1);
+            pieChart.Location = new Point(436, 242);
+            pieChart.Name = "pieChart";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            pieChart.Series.Add(series1);
+            pieChart.Size = new Size(284, 255);
+            pieChart.TabIndex = 7;
+            pieChart.Text = "chart1";
+            pieChart.Visible = false;
             // 
             // MenuForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(517, 544);
-            Controls.Add(statusStrip1);
+            ClientSize = new Size(732, 563);
+            Controls.Add(pieChart);
+            Controls.Add(statusStrip);
+            Controls.Add(MenuStrip);
             Controls.Add(randomQuoteTxt);
             Controls.Add(label2);
             Controls.Add(label4);
@@ -186,13 +270,17 @@
             Controls.Add(classifyBtn);
             Controls.Add(downloadBtn);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            MainMenuStrip = MenuStrip;
             Name = "MenuForm";
             Text = "Classify Emotions";
             Load += MenuForm_Load;
             ((System.ComponentModel.ISupportInitialize)classifyGrid).EndInit();
-            statusStrip1.ResumeLayout(false);
-            statusStrip1.PerformLayout();
+            statusStrip.ResumeLayout(false);
+            statusStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)errProvider).EndInit();
+            MenuStrip.ResumeLayout(false);
+            MenuStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pieChart).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -208,11 +296,18 @@
         private Label label3;
         private Button classifyBtn;
         private Label label4;
-        private StatusStrip statusStrip1;
+        private StatusStrip statusStrip;
         private ToolStripStatusLabel statusLbl;
         private ToolStripProgressBar progressBar;
         private ErrorProvider errProvider;
         private System.Windows.Forms.Timer randomQuoteTimer;
         private Label randomQuoteTxt;
+        private MenuStrip MenuStrip;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem saveAsToolStripMenuItem;
+        private ToolStripMenuItem xlsxToolStripMenuItem;
+        private ToolStripMenuItem csvToolStripMenuItem;
+        private ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.DataVisualization.Charting.Chart pieChart;
     }
 }
