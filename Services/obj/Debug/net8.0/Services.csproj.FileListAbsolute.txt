@@ -13,3 +13,4 @@ C:\Users\matja\source\repos\PostGraduate\Services\obj\Debug\net8.0\Services.dll
 C:\Users\matja\source\repos\PostGraduate\Services\obj\Debug\net8.0\refint\Services.dll
 C:\Users\matja\source\repos\PostGraduate\Services\obj\Debug\net8.0\Services.pdb
 C:\Users\matja\source\repos\PostGraduate\Services\obj\Debug\net8.0\ref\Services.dll
+C:\Users\matja\source\repos\PostGraduate\Services\obj\Debug\net8.0\Services.sourcelink.json
