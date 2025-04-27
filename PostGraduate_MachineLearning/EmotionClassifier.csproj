@@ -12,13 +12,10 @@
     <PackageReference Include="LiveCharts.WinForms" Version="0.9.7.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.3" />
+    <PackageReference Include="Microsoft.ML" Version="4.0.2" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.3" />
+    <PackageReference Include="TweetinviAPI" Version="5.0.4" />
     <PackageReference Include="WinForms.DataVisualization" Version="1.10.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Models\Models.csproj" />
-    <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
 </Project>

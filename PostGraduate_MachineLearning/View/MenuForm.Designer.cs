@@ -70,7 +70,7 @@
             downloadBtn.TabIndex = 0;
             downloadBtn.Text = "Download Tweets";
             downloadBtn.UseVisualStyleBackColor = true;
-            downloadBtn.Click += downloadBtn_Click;
+            
             // 
             // partyNameTxt
             // 
@@ -106,7 +106,7 @@
             classifyGrid.Name = "classifyGrid";
             classifyGrid.Size = new Size(409, 255);
             classifyGrid.TabIndex = 3;
-            classifyGrid.CellDoubleClick += classifyGrid_CellDoubleClick;
+  
             // 
             // label1
             // 
@@ -143,7 +143,7 @@
             classifyBtn.TabIndex = 0;
             classifyBtn.Text = "Clasify Tweets";
             classifyBtn.UseVisualStyleBackColor = true;
-            classifyBtn.Click += classifyBtn_Click;
+
             // 
             // label4
             // 
@@ -180,7 +180,7 @@
             // 
             // randomQuoteTimer
             // 
-            randomQuoteTimer.Tick += timer1_Tick;
+
             // 
             // randomQuoteTxt
             // 
@@ -231,7 +231,7 @@
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             exitToolStripMenuItem.Size = new Size(124, 22);
             exitToolStripMenuItem.Text = "E&xit";
-            exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
+           
             // 
             // pieChart
             // 
@@ -273,7 +273,7 @@
             MainMenuStrip = MenuStrip;
             Name = "MenuForm";
             Text = "Classify Emotions";
-            Load += MenuForm_Load;
+
             ((System.ComponentModel.ISupportInitialize)classifyGrid).EndInit();
             statusStrip.ResumeLayout(false);
             statusStrip.PerformLayout();
@@ -288,7 +288,7 @@
         #endregion
 
         private Button downloadBtn;
-        private TextBox partyNameTxt;
+        public TextBox partyNameTxt;
         private DateTimePicker startPicker;
         private DataGridView classifyGrid;
         private Label label1;

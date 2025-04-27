@@ -3,11 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostGraduate_MachineLearning_UI", "PostGraduate_MachineLearning_UI.csproj", "{9F20AEA7-210C-42F3-9AAA-DBCEF0A49C99}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "..\Services\Services.csproj", "{2549DD40-D4F1-418F-9629-9E1D4185718A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "..\Models\Models.csproj", "{ABDD176C-7CA7-4FC5-9A48-2A3B2CA758B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmotionClassifier", "EmotionClassifier.csproj", "{9F20AEA7-210C-42F3-9AAA-DBCEF0A49C99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +15,6 @@ Global
 		{9F20AEA7-210C-42F3-9AAA-DBCEF0A49C99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F20AEA7-210C-42F3-9AAA-DBCEF0A49C99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F20AEA7-210C-42F3-9AAA-DBCEF0A49C99}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2549DD40-D4F1-418F-9629-9E1D4185718A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2549DD40-D4F1-418F-9629-9E1D4185718A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2549DD40-D4F1-418F-9629-9E1D4185718A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2549DD40-D4F1-418F-9629-9E1D4185718A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ABDD176C-7CA7-4FC5-9A48-2A3B2CA758B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ABDD176C-7CA7-4FC5-9A48-2A3B2CA758B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ABDD176C-7CA7-4FC5-9A48-2A3B2CA758B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ABDD176C-7CA7-4FC5-9A48-2A3B2CA758B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

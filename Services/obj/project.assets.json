@@ -2489,6 +2489,16 @@
           }
         }
       },
+      "EmotionClassifier/1.0.0": {
+        "type": "project",
+        "framework": "Unsupported,Version=v0.0",
+        "compile": {
+          "bin/placeholder/EmotionClassifier.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/EmotionClassifier.dll": {}
+        }
+      },
       "Models/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -7179,6 +7189,11 @@
         "tweetinviapi.nuspec"
       ]
     },
+    "EmotionClassifier/1.0.0": {
+      "type": "project",
+      "path": "../PostGraduate_MachineLearning/EmotionClassifier.csproj",
+      "msbuildProject": "../PostGraduate_MachineLearning/EmotionClassifier.csproj"
+    },
     "Models/1.0.0": {
       "type": "project",
       "path": "../Models/Models.csproj",
@@ -7187,6 +7202,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "EmotionClassifier >= 1.0.0",
       "Microsoft.Extensions.Hosting.Abstractions >= 9.0.3",
       "Microsoft.ML >= 4.0.2",
       "Microsoft.ML.AutoML >= 0.22.2",
@@ -7225,6 +7241,9 @@
           "projectReferences": {
             "C:\\Users\\matja\\source\\repos\\PostGraduate\\Models\\Models.csproj": {
               "projectPath": "C:\\Users\\matja\\source\\repos\\PostGraduate\\Models\\Models.csproj"
+            },
+            "C:\\Users\\matja\\source\\repos\\PostGraduate\\PostGraduate_MachineLearning\\EmotionClassifier.csproj": {
+              "projectPath": "C:\\Users\\matja\\source\\repos\\PostGraduate\\PostGraduate_MachineLearning\\EmotionClassifier.csproj"
             }
           }
         }
@@ -7288,5 +7307,16 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Project EmotionClassifier is not compatible with net8.0 (.NETCoreApp,Version=v8.0). Project EmotionClassifier supports: net8.0-windows7.0 (.NETCoreApp,Version=v8.0)",
+      "libraryId": "EmotionClassifier",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }

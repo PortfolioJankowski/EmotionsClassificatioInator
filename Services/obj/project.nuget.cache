@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "dgSpecHash": "9Sg0bf4Q8uG5pKMRGzQrmxJR10pDFptJGTTKTuhBZabLi3sUBcm98RGdubPYCK3TBhN7umqWSkP0qNRZRn26oA==",
-  "success": true,
+  "dgSpecHash": "+4X7KX5lnUZOPFqm65VobI0IHtP5jKUxGmuqBL09iak7I4QqJtfQWRGOTRV4H4RpUaJXAa/Faud70ZJeE5+FiA==",
+  "success": false,
   "projectFilePath": "C:\\Users\\matja\\source\\repos\\PostGraduate\\Services\\Services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\matja\\.nuget\\packages\\autofac\\4.9.4\\autofac.4.9.4.nupkg.sha512",
@@ -120,5 +120,15 @@
     "C:\\Users\\matja\\.nuget\\packages\\torchsharp\\0.102.7\\torchsharp.0.102.7.nupkg.sha512",
     "C:\\Users\\matja\\.nuget\\packages\\tweetinviapi\\5.0.4\\tweetinviapi.5.0.4.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Project EmotionClassifier is not compatible with net8.0 (.NETCoreApp,Version=v8.0). Project EmotionClassifier supports: net8.0-windows7.0 (.NETCoreApp,Version=v8.0)",
+      "libraryId": "EmotionClassifier",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }

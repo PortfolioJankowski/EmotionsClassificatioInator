@@ -10,3 +10,4 @@ C:\Users\matja\source\repos\PostGraduate\Models\obj\Debug\net8.0\refint\Models.d
 C:\Users\matja\source\repos\PostGraduate\Models\obj\Debug\net8.0\Models.pdb
 C:\Users\matja\source\repos\PostGraduate\Models\obj\Debug\net8.0\ref\Models.dll
 C:\Users\matja\source\repos\PostGraduate\Models\obj\Debug\net8.0\Models.csproj.AssemblyReference.cache
+C:\Users\matja\source\repos\PostGraduate\Models\obj\Debug\net8.0\Models.sourcelink.json
