@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EmotionClassifier.Configuration
 {
-    public class AppSettings
+    public class AppSettingsProvider
     {
         public int InitialFormWidth { get; set; }
         public int InitialFormHeight { get; set; }

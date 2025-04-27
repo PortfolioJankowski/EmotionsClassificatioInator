@@ -33,18 +33,9 @@ internal static class Program
     static IHostBuilder CreateHostBuilder() => Host.CreateDefaultBuilder()
         .ConfigureServices((context, services) =>
         {
-            services.AddSingleton<IMenuForm, MenuForm>();
-            services.AddTransient<MenuFormModel>();
-            services.AddTransient<MenuFormPresenter>();
-            services.AddServices();
-            services.AddTransient<ILoggerService>(provider =>
-            {
-                string loggerDirectory = ConfigurationManager.AppSettings["LoggerDirectory"]!;
-                return new FileLoggerService(loggerDirectory);
-            });
             services.AddSingleton(provider =>
             {
-                return new AppSettings
+                return new AppSettingsProvider
                 {
                     InitialFormWidth = int.Parse(ConfigurationManager.AppSettings["initialFormWidth"]!),
                     InitialFormHeight = int.Parse(ConfigurationManager.AppSettings["initialFormHeight"]!),
@@ -57,6 +48,13 @@ internal static class Program
                     LoggerDirectory = ConfigurationManager.AppSettings["LoggerDirectory"]!
                 };
             });
+            //services.AddSingleton<IMenuForm, MenuForm>();
+            //services.AddTransient<MenuFormModel>();
+            //services.AddTransient<MenuFormPresenter>();
+            //services.AddTransient<IDataDownloader, TwitterDataDownloader>();
+            services.AddServices();
+            
+            
         });
         
 }

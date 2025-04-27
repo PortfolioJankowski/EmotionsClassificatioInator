@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using EmotionClassifier.Models.Attributes;
+using EmotionClassifier.Models.FormModels;
+using Microsoft.Extensions.Configuration;
 using Models;
 using Models.Exceptions;
 using System.Diagnostics;
@@ -6,6 +8,7 @@ using Tweetinvi;
 
 namespace Services;
 
+[ServiceRegistration(typeof(IDataDownloader), Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton)]
 public class TwitterDataDownloader : IDataDownloader
 {
     private readonly IConfiguration _manager;
@@ -14,11 +17,11 @@ public class TwitterDataDownloader : IDataDownloader
     {
         this._manager = manager;
     }
-    public async  Task<IEnumerable<string>> DownloadTwitterDataAsync(UserTweetRequest request)
+    public async  Task<IEnumerable<string>> DownloadTwitterDataAsync(MenuFormModel request)
     {
-        string query = $"from:{request.PoliticalGroup} -is:retweet lang:pl";
+        string query = $"from:{request.ChoosenParty} -is:retweet lang:pl";
         var folderPath = Path.Combine(AppContext.BaseDirectory, "Downloads");
-        var filePath = Path.Combine(folderPath, $"{request.PoliticalGroup}.txt");
+        var filePath = Path.Combine(folderPath, $"{request.ChoosenParty}.txt");
         
         if (File.Exists(filePath))
         {
@@ -41,7 +44,7 @@ public class TwitterDataDownloader : IDataDownloader
             
             Directory.CreateDirectory(folderPath);
             var tweetText = tweets.Tweets
-               .Where(t => t.Text.Contains("💬") && t.CreatedAt >= request.StartDate)
+               .Where(t => t.Text.Contains("💬") && t.CreatedAt >= request.ChoosenStartDate)
                .Select(t => t.Text.Replace(",", ""))
                .ToList();
 
@@ -75,6 +78,6 @@ public class TwitterDataDownloader : IDataDownloader
 
 public interface IDataDownloader
 {
-    Task<IEnumerable<string>> DownloadTwitterDataAsync(UserTweetRequest request);
+    Task<IEnumerable<string>> DownloadTwitterDataAsync(MenuFormModel request);
 }
 

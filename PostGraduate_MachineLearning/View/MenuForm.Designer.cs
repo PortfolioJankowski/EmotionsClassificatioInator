@@ -288,7 +288,7 @@
         #endregion
 
         private Button downloadBtn;
-        private TextBox partyNameTxt;
+        public TextBox partyNameTxt;
         private DateTimePicker startPicker;
         private DataGridView classifyGrid;
         private Label label1;

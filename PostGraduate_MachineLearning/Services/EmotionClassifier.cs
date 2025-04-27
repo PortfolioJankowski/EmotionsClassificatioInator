@@ -6,15 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Models;
+using EmotionClassifier.Models.FormModels;
 
 namespace EmotionClassifier.Services
 {
     public class EmotionModel
     {
-        private readonly UserTweetRequest _request;
+        private readonly MenuFormModel _request;
         private readonly string _dataPath;
         private readonly string _modelPath;
-        public EmotionModel(UserTweetRequest request)
+        public EmotionModel(MenuFormModel request)
         {
             _request = request;
             _dataPath = Path.Combine(AppContext.BaseDirectory, "Model", "tweets_dataset.csv");

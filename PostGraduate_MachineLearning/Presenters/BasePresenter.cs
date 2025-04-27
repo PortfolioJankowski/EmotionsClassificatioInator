@@ -10,15 +10,15 @@ namespace EmotionClassifier.Presenters
 {
     public class BasePresenter
     {
-        private readonly AppSettings _appSettings;
+        private readonly AppSettingsProvider _appSettings;
         private readonly ILoggerService _logger;
-        public BasePresenter(AppSettings appSettings, ILoggerService logger)
+        public BasePresenter(AppSettingsProvider appSettings, ILoggerService logger)
         {
             this._appSettings = appSettings;
             this._logger = logger;
 
         }
         protected ILoggerService Logger { get => _logger; }
-        protected AppSettings AppSettings { get => _appSettings; }
+        protected AppSettingsProvider AppSettings { get => _appSettings; }
     }
 }

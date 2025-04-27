@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EmotionClassifier.Services
 {
-    public static class MessageProvider
+    public static class RandomQuoteProvider
     {
         public static IEnumerable<string> GetQuotes() =>
                 ["Jestem za, a nawet przeciw. – Lech Wałęsa",
