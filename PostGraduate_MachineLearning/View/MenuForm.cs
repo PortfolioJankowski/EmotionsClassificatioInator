@@ -10,10 +10,10 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace PostGraduate_MachineLearning
 {
-    [ServiceRegistration(typeof(IMenuForm),Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton)]
+    [ServiceRegistration(typeof(IMenuForm), Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton)]
     public partial class MenuForm : Form, IMenuForm, INotifyPropertyChanged
     {
-        
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -44,7 +44,7 @@ namespace PostGraduate_MachineLearning
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        
+
         public string? ChoosenParty
         {
             get => _choosenParty;
@@ -52,7 +52,7 @@ namespace PostGraduate_MachineLearning
             {
                 if (_choosenParty != value)
                 {
-                    _choosenParty = value; 
+                    _choosenParty = value;
                     OnPropertyChanged(nameof(ChoosenParty));
                     IsDownloadBtnEnabled = !string.IsNullOrEmpty(_choosenParty);
                 }
@@ -124,7 +124,7 @@ namespace PostGraduate_MachineLearning
             }
         }
 
-        
+
         public bool IsProgressBarVisible
         {
             get => _isProgressBarVisible;
@@ -134,7 +134,7 @@ namespace PostGraduate_MachineLearning
                 OnPropertyChanged(nameof(IsProgressBarVisible));
             }
         }
-        
+
         public int ProgressBarValue
         {
             get => _progressBarValue;
@@ -145,7 +145,7 @@ namespace PostGraduate_MachineLearning
             }
         }
 
-        
+
         public bool IsDownloadBtnEnabled
         {
             get => _isDownloadButtonEnabled;
@@ -167,10 +167,10 @@ namespace PostGraduate_MachineLearning
             get => classifyGrid.Visible;
             set => classifyGrid.Visible = value;
         }
-    
 
-         
-        public string StatusLabelText 
+
+
+        public string StatusLabelText
         {
             get => _statusLabelText;
             set
@@ -192,7 +192,7 @@ namespace PostGraduate_MachineLearning
         }
 
 
-        public long ProgressBarMaximumValue 
+        public long ProgressBarMaximumValue
         {
             get => _progressBarMaximumValue;
             set
@@ -212,7 +212,7 @@ namespace PostGraduate_MachineLearning
             }
         }
 
-        public List<ClassificationResult> ModelList 
+        public List<ClassificationResult> ModelList
         {
             get => _models;
             set
@@ -325,7 +325,7 @@ namespace PostGraduate_MachineLearning
 
         private void InitialViewConfiguration()
         {
-            
+
             this.progressBar.DataBindings.Add("Maximum", this, nameof(ProgressBarMaximumValue), true, DataSourceUpdateMode.OnPropertyChanged);
             this.statusLbl.DataBindings.Add("Text", this, nameof(StatusLabelText), true, DataSourceUpdateMode.OnPropertyChanged);
             this.progressBar.DataBindings.Add("Visible", this, nameof(IsProgressBarVisible), true, DataSourceUpdateMode.OnPropertyChanged);
@@ -347,5 +347,6 @@ namespace PostGraduate_MachineLearning
             this.Size = new Size(_appsettings.InitialFormWidth, _appsettings.InitialFormHeight);
         }
         #endregion Private methods
+
     }
 }

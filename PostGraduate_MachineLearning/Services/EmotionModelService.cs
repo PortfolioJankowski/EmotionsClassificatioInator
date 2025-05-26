@@ -38,7 +38,6 @@ namespace EmotionClassifier.Services
             }
         }
 
-        // Optional method for explicit training or reloading
         public void ReloadModel()
         {
             var modelPath = Path.Combine(AppContext.BaseDirectory, "Model", "emotionModel.zip");

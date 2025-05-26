@@ -22,15 +22,19 @@ namespace Services.Presenters
         private Random _random = new();
         private List<string> _randomQuotes = RandomQuoteProvider.GetQuotes().ToList();
         private EmotionModelService _emotionPredictior;
-        
+        private EmotionModel _emotionModel;
+
         public MenuFormPresenter(IMenuForm view, MenuFormModel model, AppSettingsProvider appSettings,
-            ILoggerService logger, IDataDownloader dataDownloader, EmotionModelService emotionPredictor)
+            ILoggerService logger, IDataDownloader dataDownloader, EmotionModel emotionModel, EmotionModelService emotionPredictor)
             : base(appSettings, logger)
         {
             _view = view;
             _model = model;
             _dataDownloader = dataDownloader;
+            _emotionModel = emotionModel;
             _emotionPredictior = emotionPredictor;
+            _emotionModel.TrainModel(); 
+            _emotionPredictior.ReloadModel(); 
             BindViewMethods();
         }
 
@@ -82,6 +86,7 @@ namespace Services.Presenters
         private async void DownloadData_Click(object? sender, EventArgs e)
         {
             InitializeModel();
+
             if (!_model.IsRequestValid())
             {
                 _view.SetControlError(((MenuForm)_view).partyNameTxt, "Field cannot be empty!");
@@ -188,6 +193,7 @@ namespace Services.Presenters
         private void Form_Load(object? sender, EventArgs e)
         {
             InitializeModel();
+            
             _view.ChoosenParty = _model.ChoosenParty;
             _view.ChoosenEndDate = _model.ChoosenStartDate;
             _view.IsProgressBarVisible = false;

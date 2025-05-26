@@ -22,16 +22,16 @@ public class TwitterDataDownloader : IDataDownloader
         string query = $"from:{request.ChoosenParty} -is:retweet lang:pl";
         var folderPath = Path.Combine(AppContext.BaseDirectory, "Downloads");
         var filePath = Path.Combine(folderPath, $"{request.ChoosenParty}.txt");
-        
+
         if (File.Exists(filePath))
         {
             var data = await File.ReadAllLinesAsync(filePath);
             var filteredData = data.Where(tweet => tweet.Contains("💬"))
                 .Select(tweet => tweet.Replace(",", "")).ToList();
-            
+
             return filteredData;
         }
-           
+
 
         try
         {
@@ -53,13 +53,12 @@ public class TwitterDataDownloader : IDataDownloader
         }
         catch (Tweetinvi.Exceptions.TwitterException ex) 
         {
-            //Loging
+
             Debug.WriteLine(ex.Message);
             return Enumerable.Empty<string>();
         }
         catch (TweetsNotFoundException ex)
         {
-            //Logging
             return Enumerable.Empty<string>();
         }
     }
